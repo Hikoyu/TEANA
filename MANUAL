@@ -1,0 +1,82 @@
+=========================================
+Abridged User's Manual of TEANA ver.1.0.0
+=========================================
+
+Supported Operating System
+--------------------------
+macOS or Linux (64-bit)
+
+
+Software Requirements
+---------------------
+perl		5.8 or later
+blast+		2.2.18 or later		ftp://ftp.ncbi.nlm.nih.gov/blast/executables/LATEST/
+bowtie2		2.0.1 or later		https://sourceforge.net/projects/bowtie-bio/files/latest/
+bridger		2014-12-01 or later	https://sourceforge.net/projects/rnaseqassembly/files/latest/
+
+
+Installation
+------------
+Move "teana.pl" to any directory in the PATH.
+Other required softwares have to be also installed and be in the PATH.
+
+Installing bridger on macOS is difficult.
+First of all, replace bundled rsem with latest version.
+$ wget -O - https://github.com/deweylab/RSEM/archive/v1.3.0.tar.gz | tar -xzf -
+$ rm -r /any/where/Bridger_r2014-12-01/plugins/rsem
+$ mv RSEM-1.3.0 /any/where/Bridger_r2014-12-01/plugins/rsem
+
+Then, try "bridger_installer_for_mac.sh" as follows:
+$ mv bridger_installer_for_mac.sh /any/where/Bridger_r2014-12-01/
+$ cd /any/where/Bridger_r2014-12-01/
+$ chmod 755 bridger_installer_for_mac.sh
+$ ./bridger_installer_for_mac.sh
+
+This installer requires llvm and boost.
+You have to isntall above packeages via homerbrew.
+Homebrew        http://brew.sh
+
+
+Quick Start
+-----------
+General usage is as below.
+
+$ teana.pl [options] <seed.fa> <in1_r1.fq[,in2_r1.fq,...]> <in1_r2.fq[,in2_r2.fq,...]> [2>log]
+
+If you omit arguments, TEANA outputs its version and available options.
+
+$ teana.pl
+teana.pl ver.1.0.0
+
+Functions:
+  TEANA is Terminus Extending Assmbler with Nearby Alignment.
+  This software assembles short reads aligned to the both ends of seed sequences and extends them.
+
+Usage:
+  teana.pl [options] <seed.fa> <in1_r1.fq[,in2_r1.fq,...]> <in1_r2.fq[,in2_r2.fq,...]>
+
+Options:
+  -c INT 	Maximum clipping size <0-> [0]
+  -d INT 	Minimum k-mer depth <1-> [1]
+  -i FLOAT 	Cutoff overlap identity <0-1> [0.99]
+  -j INT 	Minimum abundance of junction reads <1-> [2]
+  -k INT 	K-mer size for assembly <19-31> [25]
+  -l INT 	Minimum fragment length <1-> [200]
+  -m INT 	Maximum fragment length <1-> [800]
+  -n INT 	Cutoff overlap length <0-> [300]
+  -o PATH 	Path to output directory [.]
+  -p STR 	Presets for aligning reads <very-fast|fast|sensitive|very-sensitive> [sensitive]
+  -t INT 	Number of parallel worker threads <1-> [1]
+  -v		Keep intermediate files for assembly
+
+
+License
+-------
+TEANA is released under the MIT License.
+See also LICENSE.
+
+
+Bug Reporting
+-------------
+If you find bugs, please let me know.
+Email: suzuki.hikoyu@gmail.com
