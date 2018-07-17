@@ -11,7 +11,7 @@ use Getopt::Std;
 # ソフトウェアを定義
 ### 編集範囲 開始 ###
 my $software = "teana.pl";	# ソフトウェアの名前
-my $version = "ver.1.0.0";	# ソフトウェアのバージョン
+my $version = "ver.1.0.1";	# ソフトウェアのバージョン
 my $note = "TEANA is Terminus Extending Assmbler with Nearby Alignment.\n  This software assembles short reads aligned to the both ends of seed sequences and extends them.";	# ソフトウェアの説明
 my $usage = "<seed.fa> <in1_r1.fq[,in2_r1.fq,...]> <in1_r2.fq[,in2_r2.fq,...]>";	# ソフトウェアの使用法 (コマンド非使用ソフトウェアの時に有効)
 ### 編集範囲 終了 ###
@@ -391,14 +391,15 @@ sub create_read_file {
 	# ファイルハンドルが定義されている場合は0を返す
 	return(0) if defined($file);
 	
-	# リード配列ファイルを作成
-	open($_[0]->[0], ">", "$opt{o}/seed$_[1]_upstream_r1.fa") or &exception::error("failed to make file: $opt{o}/seed$_[1]_upstream_r1.fa");
-	open($_[0]->[1], ">", "$opt{o}/seed$_[1]_upstream_r2.fa") or &exception::error("failed to make file: $opt{o}/seed$_[1]_upstream_r2.fa");
-	open($_[0]->[2], ">", "$opt{o}/seed$_[1]_downstream_r1.fa") or &exception::error("failed to make file: $opt{o}/seed$_[1]_downstream_r1.fa");
-	open($_[0]->[3], ">", "$opt{o}/seed$_[1]_downstream_r2.fa") or &exception::error("failed to make file: $opt{o}/seed$_[1]_downstream_r2.fa");
+	# シードIDを更新
+	$seed_id++;
+	$_[1] = $seed_id;
 	
-	# シード配列番号を更新
-	$_[1] = $seed_id + 1;
+	# リード配列ファイルを作成
+	open($_[0]->[0], ">", "$opt{o}/seed${seed_id}_upstream_r1.fa") or &exception::error("failed to make file: $opt{o}/seed${seed_id}_upstream_r1.fa");
+	open($_[0]->[1], ">", "$opt{o}/seed${seed_id}_upstream_r2.fa") or &exception::error("failed to make file: $opt{o}/seed${seed_id}_upstream_r2.fa");
+	open($_[0]->[2], ">", "$opt{o}/seed${seed_id}_downstream_r1.fa") or &exception::error("failed to make file: $opt{o}/seed${seed_id}_downstream_r1.fa");
+	open($_[0]->[3], ">", "$opt{o}/seed${seed_id}_downstream_r2.fa") or &exception::error("failed to make file: $opt{o}/seed${seed_id}_downstream_r2.fa");
 	return(1);
 }
 

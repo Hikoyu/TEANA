@@ -1,5 +1,5 @@
 =========================================
-Abridged User's Manual of TEANA ver.1.0.0
+Abridged User's Manual of TEANA ver.1.0.1
 =========================================
 
 Supported Operating System
@@ -46,7 +46,7 @@ $ teana.pl [options] <seed.fa> <in1_r1.fq[,in2_r1.fq,...]> <in1_r2.fq[,in2_r2.fq
 If you omit arguments, TEANA outputs its version and available options.
 
 $ teana.pl
-teana.pl ver.1.0.0
+teana.pl ver.1.0.1
 
 Functions:
   TEANA is Terminus Extending Assmbler with Nearby Alignment.
